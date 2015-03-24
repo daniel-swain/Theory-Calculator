@@ -32,7 +32,7 @@ public class Calc extends Application {
     private final SimpleStringProperty stackText = new SimpleStringProperty("");
     private final SimpleStringProperty outputText = new SimpleStringProperty("");
     
-    private Stack<String> operand_stack = new Stack<>();
+    private final Stack<String> operand_stack = new Stack<>();
     
     public static void main(String[] args) {
         launch(args);
@@ -165,7 +165,8 @@ public class Calc extends Application {
             @Override
             public void handle(ActionEvent actionEvent) {
                 inputText.set(inputText.get() + s);
-                //Push to stack
+                operand_stack.push(s);
+                stackText.set(operand_stack.toString());
             }
         });
     }
