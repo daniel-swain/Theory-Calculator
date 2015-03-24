@@ -17,10 +17,9 @@ import java.util.Map;
 // a simple JavaFX calculator.
 public class Calc extends Application {
   private static final String[][] template = {
-      { "7", "8", "9", "/" },
-      { "4", "5", "6", "*" },
-      { "1", "2", "3", "-" },
-      { "0", "c", "=", "+" }
+      { "a", "b", "c", "d" },
+      { "+", "-", "*", "/" },
+      { "(", ")", "CLR", "EXT" }
   };
 
   private final Map<String, Button> accelerators = new HashMap<>();
@@ -36,23 +35,28 @@ public class Calc extends Application {
   public static void main(String[] args) { launch(args); }
 
   @Override public void start(Stage stage) {
-    final TextField screen  = createScreen();
+    final TextField input = createScreen();
+    final TextField stack = createScreen();
+    final TextField output = createScreen();
     final TilePane  buttons = createButtons();
 
-    stage.setTitle("Calc");
+    stage.setTitle("Theory Calculator");
     stage.initStyle(StageStyle.UTILITY);
     stage.setResizable(false);
-    stage.setScene(new Scene(createLayout(screen, buttons)));
+    stage.setScene(new Scene(createLayout(new TextField[]{input, stack, output}, buttons)));
     stage.show();
   }
-
-  private VBox createLayout(TextField screen, TilePane buttons) {
+  
+   private VBox createLayout(TextField[] screens, TilePane buttons) {
     final VBox layout = new VBox(20);
     layout.setAlignment(Pos.CENTER);
     layout.setStyle("-fx-background-color: chocolate; -fx-padding: 20; -fx-font-size: 20;");
-    layout.getChildren().setAll(screen, buttons);
+    layout.getChildren().setAll(screens[0], screens[1], screens [2], buttons);
     handleAccelerators(layout);
-    screen.prefWidthProperty().bind(buttons.widthProperty());
+    screens[0].prefWidthProperty().bind(buttons.widthProperty());
+    screens[1].prefWidthProperty().bind(buttons.widthProperty());
+    screens[2].prefWidthProperty().bind(buttons.widthProperty());
+
     return layout;
   }
 
