@@ -44,19 +44,19 @@ public class Calc extends Application {
     input.setStyle("-fx-background-color: aquamarine;");
     input.setAlignment(Pos.CENTER_RIGHT);
     input.setEditable(false);
-    input.textProperty().bind(Bindings.format("%.0f", inputText));
+    input.textProperty().bind(Bindings.format("%-2s", inputText));
     
     final TextField stack = new TextField();
     stack.setStyle("-fx-background-color: aquamarine;");
     stack.setAlignment(Pos.CENTER_RIGHT);
     stack.setEditable(false);
-    stack.textProperty().bind(Bindings.format("%.0f", stackText));
+    stack.textProperty().bind(Bindings.format("%-2s", stackText));
     
     final TextField output = new TextField();
     output.setStyle("-fx-background-color: aquamarine;");
     output.setAlignment(Pos.CENTER_RIGHT);
     output.setEditable(false);
-    output.textProperty().bind(Bindings.format("%.0f", outputText));
+    output.textProperty().bind(Bindings.format("%-2s", outputText));
     final TilePane  buttons = createButtons();
 
     stage.setTitle("Theory Calculator");
