@@ -14,6 +14,7 @@ import javafx.stage.StageStyle;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
+import javafx.application.Platform;
 
 // a simple JavaFX calculator.
 public class Calc extends Application {
@@ -116,7 +117,7 @@ public class Calc extends Application {
       } else if ("CLR".equals(s)) {
         makeClearButton(button);
       } else if ("EXT".equals(s)) {
-          // Do EXT, whatever that is.
+        makeExitButton(button);
       }
     }
 
@@ -174,6 +175,16 @@ public class Calc extends Application {
         operand_stack.clear();
       }
     });
+  }
+  
+  private void makeExitButton(Button button) {
+      button.setStyle("-fx-base: mistyrose;");
+      button.setOnAction(new EventHandler<ActionEvent>() {
+         @Override
+         public void handle(ActionEvent actionEvent) {
+             Platform.exit();
+         }
+      });
   }
 
 }
