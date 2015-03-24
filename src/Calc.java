@@ -31,7 +31,7 @@ public class Calc extends Application {
   private String outputText = new String();
   private DoubleProperty value = new SimpleDoubleProperty();
   
-  private Stack<String> stack = new Stack<>();
+  private Stack<String> operand_stack = new Stack<>();
   private enum Op { NOOP, ADD, SUBTRACT, MULTIPLY, DIVIDE }
 
   private Op curOp   = Op.NOOP;
@@ -125,6 +125,8 @@ public class Calc extends Application {
       case "-": triggerOp.set(Op.SUBTRACT); break;
       case "*": triggerOp.set(Op.MULTIPLY); break;
       case "/": triggerOp.set(Op.DIVIDE);   break;
+      case "(": /* Do something */          break;
+      case ")": /* Do something else */     break;
     }
     return triggerOp;
   }
@@ -151,11 +153,7 @@ public class Calc extends Application {
     button.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
-        if (curOp == Op.NOOP) {
-            // 
-        } else {
-            
-        }
+        // Upon press, put to input in specified area and push to output
       }
     });
   }
@@ -168,7 +166,7 @@ public class Calc extends Application {
         outputText = "";
         inputText = "";
         stackText = "";
-        stack.clear();
+        operand_stack.clear();
       }
     });
   }
