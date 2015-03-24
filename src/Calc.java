@@ -26,11 +26,9 @@ public class Calc extends Application {
 
   private final Map<String, Button> accelerators = new HashMap<>();
 
-  private DoubleProperty stackValue = new SimpleDoubleProperty();
-  private String inputText = new String();
-  private String stackText = new String();
-  private String outputText = new String();
-  private DoubleProperty value = new SimpleDoubleProperty();
+  private SimpleStringProperty inputText = new SimpleStringProperty("");
+  private SimpleStringProperty stackText = new SimpleStringProperty("");
+  private SimpleStringProperty outputText = new SimpleStringProperty("");
   
   private Stack<String> operand_stack = new Stack<>();
   private enum Op { NOOP, ADD, SUBTRACT, MULTIPLY, DIVIDE }
@@ -160,6 +158,8 @@ public class Calc extends Application {
       @Override
       public void handle(ActionEvent actionEvent) {
         // Upon press, put to input in specified area and push to output
+          outputText.set(outputText.get() + s);
+          inputText.set(inputText.get() + s);
       }
     });
   }
@@ -169,9 +169,9 @@ public class Calc extends Application {
     button.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
-        outputText = "";
-        inputText = "";
-        stackText = "";
+        outputText.set("");
+        inputText.set("");
+        stackText.set("");
         operand_stack.clear();
       }
     });
