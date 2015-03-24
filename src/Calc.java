@@ -26,15 +26,11 @@ public class Calc extends Application {
 
   private final Map<String, Button> accelerators = new HashMap<>();
 
-  private SimpleStringProperty inputText = new SimpleStringProperty("");
-  private SimpleStringProperty stackText = new SimpleStringProperty("");
-  private SimpleStringProperty outputText = new SimpleStringProperty("");
+  private final SimpleStringProperty inputText = new SimpleStringProperty("");
+  private final SimpleStringProperty stackText = new SimpleStringProperty("");
+  private final SimpleStringProperty outputText = new SimpleStringProperty("");
   
   private Stack<String> operand_stack = new Stack<>();
-  private enum Op { NOOP, ADD, SUBTRACT, MULTIPLY, DIVIDE }
-
-  private Op curOp   = Op.NOOP;
-  private Op stackOp = Op.NOOP;
 
   public static void main(String[] args) { launch(args); }
 
@@ -110,8 +106,8 @@ public class Calc extends Application {
       makeAlphaButton(s, button);
     } else {
       if (s.matches("[()]")) {
-        //makeParenthesesButton(s, button);
-      } else if (s.matches("[-+*/]")) { // Get regex for the operands
+        makeParenthesesButton(s, button);
+      } else if (s.matches("[-+*/]")) { 
         makeOperandButton(s, button);
       } else if ("CLR".equals(s)) {
         makeClearButton(button);
@@ -120,6 +116,14 @@ public class Calc extends Application {
       }
     }
 
+    return button;
+  }
+  
+  private Button makeStandardButton(String s) {
+    Button button = new Button(s);
+    button.setStyle("-fx-base: beige;");
+    accelerators.put(s, button);
+    button.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
     return button;
   }
   
@@ -145,14 +149,6 @@ public class Calc extends Application {
         //Push to stack
       }
     });
-  }
-
-  private Button makeStandardButton(String s) {
-    Button button = new Button(s);
-    button.setStyle("-fx-base: beige;");
-    accelerators.put(s, button);
-    button.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-    return button;
   }
 
   private void makeAlphaButton(final String s, Button button) {
