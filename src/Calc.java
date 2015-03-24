@@ -126,19 +126,33 @@ public class Calc extends Application {
     button.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
     return button;
   }
-  
-  private void makeParenthesesButton(final String s, Button button) {
-    button.setStyle("-fx-base: lightgray;");
-    button.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent actionEvent) {
-        inputText.set(inputText.get() + s);
-        //Push to stack
-        //If open, continue till finds close
-        //If close, push all out of stack until an open is found
-      }
-    });
-  }
+
+    private void makeParenthesesButton(final String s, Button button) {
+        button.setStyle("-fx-base: lightgray;");
+        button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                inputText.set(inputText.get() + s);
+
+                switch (s) {
+                    case "(":
+                        operand_stack.push(s);
+                        stackText.set(operand_stack.toString());
+                        break;
+                    case ")":
+                        while (!operand_stack.isEmpty()) {
+                            String op = operand_stack.pop();
+                            if (op.equals("(")) {
+                                break;
+                            }
+                            outputText.set(outputText.get() + op);
+                        }
+                        stackText.set(operand_stack.toString());
+                        break;
+                }
+            }
+        });
+    }
 
   private void makeOperandButton(final String s, Button button) {
     button.setStyle("-fx-base: lightgray;");
