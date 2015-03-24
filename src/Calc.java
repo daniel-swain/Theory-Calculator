@@ -109,9 +109,10 @@ public class Calc extends Application {
     if (s.matches("[a-d]")) {
       makeAlphaButton(s, button);
     } else {
-      final ObjectProperty<Op> triggerOp = determineOperand(s);
-      if (triggerOp.get() != Op.NOOP) {
-        makeOperandButton(button, triggerOp);
+      if (s.matches("[()]")) {
+        //makeParenthesesButton(s, button);
+      } else if (s.matches("[-+*/]")) { // Get regex for the operands
+        makeOperandButton(s, button);
       } else if ("CLR".equals(s)) {
         makeClearButton(button);
       } else if ("EXT".equals(s)) {
@@ -121,26 +122,27 @@ public class Calc extends Application {
 
     return button;
   }
-
-  private ObjectProperty<Op> determineOperand(String s) {
-    final ObjectProperty<Op> triggerOp = new SimpleObjectProperty<>(Op.NOOP);
-    switch (s) {
-      case "+": triggerOp.set(Op.ADD);      break;
-      case "-": triggerOp.set(Op.SUBTRACT); break;
-      case "*": triggerOp.set(Op.MULTIPLY); break;
-      case "/": triggerOp.set(Op.DIVIDE);   break;
-      case "(": /* Do something */          break;
-      case ")": /* Do something else */     break;
-    }
-    return triggerOp;
-  }
-
-  private void makeOperandButton(Button button, final ObjectProperty<Op> triggerOp) {
+  
+  private void makeParenthesesButton(final String s, Button button) {
     button.setStyle("-fx-base: lightgray;");
     button.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
-        curOp = triggerOp.get();
+        inputText.set(inputText.get() + s);
+        //Push to stack
+        //If open, continue till finds close
+        //If close, push all out of stack until an open is found
+      }
+    });
+  }
+
+  private void makeOperandButton(final String s, Button button) {
+    button.setStyle("-fx-base: lightgray;");
+    button.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent actionEvent) {
+        inputText.set(inputText.get() + s);
+        //Push to stack
       }
     });
   }
@@ -157,9 +159,8 @@ public class Calc extends Application {
     button.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
-        // Upon press, put to input in specified area and push to output
-          outputText.set(outputText.get() + s);
           inputText.set(inputText.get() + s);
+          outputText.set(outputText.get() + s);
       }
     });
   }
@@ -169,9 +170,9 @@ public class Calc extends Application {
     button.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
-        outputText.set("");
         inputText.set("");
         stackText.set("");
+        outputText.set("");
         operand_stack.clear();
       }
     });
