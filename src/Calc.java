@@ -13,6 +13,7 @@ import javafx.stage.StageStyle;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 // a simple JavaFX calculator.
 public class Calc extends Application {
@@ -25,8 +26,12 @@ public class Calc extends Application {
   private final Map<String, Button> accelerators = new HashMap<>();
 
   private DoubleProperty stackValue = new SimpleDoubleProperty();
+  private String inputText = new String();
+  private String stackText = new String();
+  private String outputText = new String();
   private DoubleProperty value = new SimpleDoubleProperty();
-
+  
+  private Stack<String> stack = new Stack<>();
   private enum Op { NOOP, ADD, SUBTRACT, MULTIPLY, DIVIDE }
 
   private Op curOp   = Op.NOOP;
@@ -97,15 +102,15 @@ public class Calc extends Application {
   private Button createButton(final String s) {
     Button button = makeStandardButton(s);
 
-    if (s.matches("[0-9]")) {
-      makeNumericButton(s, button);
+    if (s.matches("[a-d]")) {
+      makeAlphaButton(s, button);
     } else {
       final ObjectProperty<Op> triggerOp = determineOperand(s);
       if (triggerOp.get() != Op.NOOP) {
         makeOperandButton(button, triggerOp);
-      } else if ("c".equals(s)) {
+      } else if ("CLR".equals(s)) {
         makeClearButton(button);
-      } else if ("=".equals(s)) {
+      } else if ("EXT".equals(s)) {
         makeEqualsButton(button);
       }
     }
@@ -142,7 +147,7 @@ public class Calc extends Application {
     return button;
   }
 
-  private void makeNumericButton(final String s, Button button) {
+  private void makeAlphaButton(final String s, Button button) {
     button.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
@@ -163,7 +168,10 @@ public class Calc extends Application {
     button.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
-        value.set(0);
+        outputText = "";
+        inputText = "";
+        stackText = "";
+        stack.clear();
       }
     });
   }
