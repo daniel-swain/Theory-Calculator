@@ -40,9 +40,23 @@ public class Calc extends Application {
   public static void main(String[] args) { launch(args); }
 
   @Override public void start(Stage stage) {
-    final TextField input = createScreen();
-    final TextField stack = createScreen();
-    final TextField output = createScreen();
+    final TextField input = new TextField();
+    input.setStyle("-fx-background-color: aquamarine;");
+    input.setAlignment(Pos.CENTER_RIGHT);
+    input.setEditable(false);
+    input.textProperty().bind(Bindings.format("%.0f", inputText));
+    
+    final TextField stack = new TextField();
+    stack.setStyle("-fx-background-color: aquamarine;");
+    stack.setAlignment(Pos.CENTER_RIGHT);
+    stack.setEditable(false);
+    stack.textProperty().bind(Bindings.format("%.0f", stackText));
+    
+    final TextField output = new TextField();
+    output.setStyle("-fx-background-color: aquamarine;");
+    output.setAlignment(Pos.CENTER_RIGHT);
+    output.setEditable(false);
+    output.textProperty().bind(Bindings.format("%.0f", outputText));
     final TilePane  buttons = createButtons();
 
     stage.setTitle("Theory Calculator");
@@ -75,15 +89,6 @@ public class Calc extends Application {
         }
       }
     });
-  }
-
-  private TextField createScreen() {
-    final TextField screen = new TextField();
-    screen.setStyle("-fx-background-color: aquamarine;");
-    screen.setAlignment(Pos.CENTER_RIGHT);
-    screen.setEditable(false);
-    screen.textProperty().bind(Bindings.format("%.0f", value));
-    return screen;
   }
 
   private TilePane createButtons() {
