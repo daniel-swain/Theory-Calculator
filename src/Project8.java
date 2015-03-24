@@ -17,8 +17,13 @@ import java.util.Map;
 import java.util.Stack;
 import javafx.application.Platform;
 
-// a simple JavaFX calculator.
-public class Calc extends Application {
+/**
+ * CSCI 3510
+ * Theory of Computation Project 8
+ * 
+ *  @author Daniel Swain Jr
+ */
+public class Project8 extends Application {
 
   private static final String[][] template = {
     {"a", "b", "c", "d"},
