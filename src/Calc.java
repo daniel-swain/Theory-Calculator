@@ -111,7 +111,7 @@ public class Calc extends Application {
       } else if ("CLR".equals(s)) {
         makeClearButton(button);
       } else if ("EXT".equals(s)) {
-        makeEqualsButton(button);
+          // Do EXT, whatever that is.
       }
     }
 
@@ -152,12 +152,9 @@ public class Calc extends Application {
       @Override
       public void handle(ActionEvent actionEvent) {
         if (curOp == Op.NOOP) {
-          value.set(value.get() * 10 + Integer.parseInt(s));
+            // 
         } else {
-          stackValue.set(value.get());
-          value.set(Integer.parseInt(s));
-          stackOp = curOp;
-          curOp = Op.NOOP;
+            
         }
       }
     });
@@ -176,18 +173,4 @@ public class Calc extends Application {
     });
   }
 
-  private void makeEqualsButton(Button button) {
-    button.setStyle("-fx-base: ghostwhite;");
-    button.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent actionEvent) {
-        switch (stackOp) {
-          case ADD:      value.set(stackValue.get() + value.get()); break;
-          case SUBTRACT: value.set(stackValue.get() - value.get()); break;
-          case MULTIPLY: value.set(stackValue.get() * value.get()); break;
-          case DIVIDE:   value.set(stackValue.get() / value.get()); break;
-        }
-      }
-    });
-  }
 }
