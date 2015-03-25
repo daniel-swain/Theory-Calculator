@@ -46,19 +46,19 @@ public class Project8 extends Application {
   @Override
   public void start(Stage stage) {
     final TextField input = new TextField();
-    input.setStyle("-fx-background-color: aquamarine;");
+    input.setStyle("-fx-background-color: #99bbbb;");
     input.setAlignment(Pos.CENTER_RIGHT);
     input.setEditable(false);
     input.textProperty().bind(Bindings.format("%-2s", inputText));
 
     final TextField stack = new TextField();
-    stack.setStyle("-fx-background-color: aquamarine;");
+    stack.setStyle("-fx-background-color: #99bbbb;");
     stack.setAlignment(Pos.CENTER_RIGHT);
     stack.setEditable(false);
     stack.textProperty().bind(Bindings.format("%-2s", stackText));
 
     final TextField output = new TextField();
-    output.setStyle("-fx-background-color: aquamarine;");
+    output.setStyle("-fx-background-color: #99bbbb;");
     output.setAlignment(Pos.CENTER_RIGHT);
     output.setEditable(false);
     output.textProperty().bind(Bindings.format("%-2s", outputText));
@@ -73,13 +73,14 @@ public class Project8 extends Application {
     stage.initStyle(StageStyle.UTILITY);
     stage.setResizable(false);
     stage.setScene(new Scene(createLayout(screens, buttons)));
+    
     stage.show();
   }
 
   private VBox createLayout(GridPane screens, TilePane buttons) {
     final VBox layout = new VBox(20);
     layout.setAlignment(Pos.CENTER);
-    layout.setStyle("-fx-background-color: chocolate; -fx-padding: 20; -fx-font-size: 20;");
+    layout.setStyle("-fx-background-color: #112222; -fx-padding: 20; -fx-font-size: 20;");
     layout.getChildren().setAll(screens, buttons);
     handleAccelerators(layout);
 
@@ -109,6 +110,7 @@ public class Project8 extends Application {
       gridpane.add(screens[i], 1, i);
       labels[i].setScaleX(.8);
       labels[i].setScaleY(.8);
+      labels[i].setStyle("-fx-text-fill: #99bbbb");
     }
     return gridpane;
   }
@@ -148,14 +150,14 @@ public class Project8 extends Application {
 
   private Button makeStandardButton(String s) {
     Button button = new Button(s);
-    button.setStyle("-fx-base: beige;");
+    button.setStyle("-fx-base: #77aa99;");
     accelerators.put(s, button);
     button.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
     return button;
   }
 
   private void makeParenthesesButton(final String s, Button button) {
-    button.setStyle("-fx-base: lightgray;");
+    button.setStyle("-fx-base: #779988;");
     button.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
@@ -182,7 +184,7 @@ public class Project8 extends Application {
   }
 
   private void makeOperandButton(final String s, Button button) {
-    button.setStyle("-fx-base: lightgray;");
+    button.setStyle("-fx-base: #779988;");
     button.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
@@ -204,7 +206,7 @@ public class Project8 extends Application {
   }
 
   private void makeClearButton(Button button) {
-    button.setStyle("-fx-base: mistyrose;");
+    button.setStyle("-fx-base: #bbcccc;");
     button.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
@@ -217,7 +219,7 @@ public class Project8 extends Application {
   }
 
   private void makeExitButton(Button button) {
-    button.setStyle("-fx-base: mistyrose;");
+    button.setStyle("-fx-base: #bbcccc;");
     button.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
