@@ -46,18 +46,21 @@ public class Project8 extends Application {
   @Override
   public void start(Stage stage) {
     final TextField input = new TextField();
+    input.setStyle("-fx-text-fill: #112222");
     input.setStyle("-fx-background-color: #99bbbb;");
     input.setAlignment(Pos.CENTER_RIGHT);
     input.setEditable(false);
     input.textProperty().bind(Bindings.format("%-2s", inputText));
 
     final TextField stack = new TextField();
+    stack.setStyle("-fx-text-fill: #112222");
     stack.setStyle("-fx-background-color: #99bbbb;");
     stack.setAlignment(Pos.CENTER_RIGHT);
     stack.setEditable(false);
     stack.textProperty().bind(Bindings.format("%-2s", stackText));
 
     final TextField output = new TextField();
+    output.setStyle("-fx-text-fill: #112222");
     output.setStyle("-fx-background-color: #99bbbb;");
     output.setAlignment(Pos.CENTER_RIGHT);
     output.setEditable(false);
