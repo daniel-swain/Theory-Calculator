@@ -64,23 +64,24 @@ public class Project8 extends Application {
     output.textProperty().bind(Bindings.format("%-2s", outputText));
 
     final TilePane buttons = createButtons();
+    final GridPane screens = createScreens(new TextField[]{input, stack, output},
+                                           new Label[]{new Label("Input"),
+                                                       new Label("Stack"),
+                                                       new Label("Output")});
 
     stage.setTitle("Theory Calculator");
     stage.initStyle(StageStyle.UTILITY);
     stage.setResizable(false);
-    stage.setScene(new Scene(createLayout(new TextField[]{input, stack, output}, buttons)));
+    stage.setScene(new Scene(createLayout(screens, buttons)));
     stage.show();
   }
 
-  private VBox createLayout(TextField[] screens, TilePane buttons) {
+  private VBox createLayout(GridPane screens, TilePane buttons) {
     final VBox layout = new VBox(20);
     layout.setAlignment(Pos.CENTER);
     layout.setStyle("-fx-background-color: chocolate; -fx-padding: 20; -fx-font-size: 20;");
-    layout.getChildren().setAll(screens[0], screens[1], screens[2], buttons);
+    layout.getChildren().setAll(screens, buttons);
     handleAccelerators(layout);
-    screens[0].prefWidthProperty().bind(buttons.widthProperty());
-    screens[1].prefWidthProperty().bind(buttons.widthProperty());
-    screens[2].prefWidthProperty().bind(buttons.widthProperty());
 
     return layout;
   }
@@ -95,6 +96,21 @@ public class Project8 extends Application {
         }
       }
     });
+  }
+  
+  private GridPane createScreens(TextField[] screens, Label[] labels) {
+    GridPane gridpane = new GridPane();
+    gridpane.getColumnConstraints().add(new ColumnConstraints(70));
+    gridpane.getColumnConstraints().add(new ColumnConstraints(200));
+    gridpane.setVgap(7);
+    // Amount of labels and textfields should be equal
+    for(int i = 0; i < labels.length; i++) {
+      gridpane.add(labels[i], 0, i);
+      gridpane.add(screens[i], 1, i);
+      labels[i].setScaleX(.8);
+      labels[i].setScaleY(.8);
+    }
+    return gridpane;
   }
 
   private TilePane createButtons() {
