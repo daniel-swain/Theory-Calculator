@@ -2,4 +2,4 @@
 
 TODO: Need to add labels to input, stack, and output textfields.
 
-![Alt text](/master/Project8Assignment.png?raw=true "")
+![Alt text](./Project8Assignment.png?raw=true "")
